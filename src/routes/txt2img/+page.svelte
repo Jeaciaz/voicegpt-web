@@ -17,12 +17,19 @@
 		{ label: 'Пейзаж [768x512]', value: 'landscape' },
 	]
 	const dimensionValues = {
-		square: { x: 512, y: 512 },
-		portrait: { x: 512, y: 768 },
-		landscape: { x: 768, y: 512 },
+		square: { width: 512, height: 512 },
+		portrait: { width: 512, height: 768 },
+		landscape: { width: 768, height: 512 },
 	}
+	const dimensionsFormName = 'dimensions'
 
 	let form: HTMLFormElement
+
+	function transformDimensions(dimensions: (typeof dimensionItems)[number]['value']) {
+		return dimensions in dimensionValues
+			? dimensionValues[dimensions as keyof typeof dimensionValues]
+			: {}
+	}
 
 	function validateForm() {
 		if (form.checkValidity()) {
@@ -38,14 +45,17 @@
 
 		const data = new FormData(form)
 		data.forEach((value, key) => {
-			json[key] = value
+			if (!!value) {
+				json[key] = value
+			}
 		})
 
-		json.dimensions =
-			typeof json.dimensions === 'string' && json.dimensions in dimensionValues
-				? dimensionValues[json.dimensions as keyof typeof dimensionValues]
-				: json.dimensions
+		if (typeof json[dimensionsFormName] === 'string') {
+			Object.assign(json, transformDimensions(json[dimensionsFormName]))
+			delete json[dimensionsFormName]
+		}
 
+		console.log(json)
 		window.Telegram.WebApp.sendData(JSON.stringify(json))
 	}
 
@@ -60,24 +70,20 @@
 
 <h1 class="text-center text-3xl">TXT -> IMG</h1>
 
-<form
-	class="grid gap-4"
-	bind:this={form}
-	on:submit|preventDefault
-	on:input={validateForm}
->
+<form class="grid gap-4 p-4" bind:this={form} on:submit|preventDefault on:input={validateForm}>
 	<div class="grid grid-cols-2 gap-2 mt-4">
 		<TextField name="prompt" label="Запрос" placeholder="elden ring, epic" required />
-		<TextField name="negative-prompt" label="Антизапрос" placeholder="realism" />
+		<TextField name="negative_prompt" label="Антизапрос" placeholder="realism" />
 	</div>
 	<Select name="dimensions" options={dimensionItems} label="Размер изображения: " />
 	<details>
 		<summary>Продвинутые опции</summary>
 		<div class="grid gap-4">
-			<Select name="sampler-method" options={samplerMethods} label="Метод семплера" />
-			<Range name="sampler-steps" min={20} max={40} label="Шаги семплера" />
+			<Select name="sampler_method" options={samplerMethods} label="Метод семплера" />
+			<Range name="sampler_steps" min={20} max={40} label="Шаги семплера" defaultValue={20} />
 			<TextField name="seed" label="Seed" placeholder="1234567890" type="number" />
-			<Range name="cfg-scale" min={1} max={25} label="CFG Scale" />
+			<Range name="cfg_scale" min={1} max={25} label="CFG Scale" step={0.5} defaultValue={7.5} />
 		</div>
 	</details>
+	<button on:click={submitForm}>submit</button>
 </form>

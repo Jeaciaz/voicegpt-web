@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Labelled from './Labelled.svelte'
 	export let label: string | undefined = undefined
-	export let value: number | string = ''
+	export let defaultValue: number | string = ''
+	export let value: number | string = defaultValue
 	export let placeholder: string | undefined = undefined
 	export let disabled: boolean = false
 	export let name: string | undefined = undefined

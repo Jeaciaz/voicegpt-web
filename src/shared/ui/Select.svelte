@@ -3,7 +3,8 @@
 	export let name: string | undefined = undefined
 	export let options: Array<{ label: string; value: string }> = []
 	export let label: string | undefined = undefined
-	export let value: string | undefined = options[0].value
+	export let defaultValue: string | undefined = options[0].value
+	export let value: string | undefined = defaultValue
 </script>
 
 {#if options.length > 0}
