@@ -5,10 +5,10 @@
 	import TextField from '../../shared/ui/TextField.svelte'
 
 	const samplerMethods = [
-		{ label: 'Euler 𝛼', value: 'euler_a' },
-		{ label: 'Heun', value: 'heun' },
-		{ label: 'DPM++ M2', value: 'dpmpp_m2' },
-		{ label: 'DDIM', value: 'ddim' },
+		{ label: 'Euler 𝛼', value: 'Euler a' },
+		{ label: 'Heun', value: 'Heun' },
+		{ label: 'DPM++ M2', value: 'DPM++ 2M' },
+		{ label: 'DDIM', value: 'DDIM' },
 	]
 
 	const dimensionItems = [
@@ -44,9 +44,10 @@
 		const json: Record<string, unknown> = {}
 
 		const data = new FormData(form)
+		const numberKeys = ['cfg_scale', 'sampler_steps']
 		data.forEach((value, key) => {
 			if (!!value) {
-				json[key] = value
+				json[key] = numberKeys.includes(key) ? +value : value
 			}
 		})
 
