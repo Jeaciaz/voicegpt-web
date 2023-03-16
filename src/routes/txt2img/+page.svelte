@@ -39,7 +39,9 @@
 		console.log(json)
 		window.Telegram.WebApp.sendData(JSON.stringify(json))
 	}
-	const resizeListener = () => alert(JSON.stringify(window.visualViewport?.height))
+	const resizeListener = () => {
+		document.documentElement.style.setProperty('min-height', `${window.visualViewport?.height}`)
+	}
 
 	onMount(() => {
 		window.visualViewport?.addEventListener('resize', resizeListener)
