@@ -5,7 +5,7 @@
 
 {#if label !== undefined}
 	<label class="flex flex-col">
-		<span class="text-sm text-slate-600 pl-1.5">
+		<span class="text-sm text-[var(--theme-hint-color)] pl-1.5">
 			{label}
 			{#if required}
 				<span class="text-sm text-red-500">*</span>

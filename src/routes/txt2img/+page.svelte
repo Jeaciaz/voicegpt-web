@@ -26,12 +26,14 @@
 
 	function validateForm() {
 		if (form.checkValidity()) {
-			window.Telegram.WebApp.MainButton.enable()
+			window.Telegram.WebApp.MainButton
+				.setColor(window.Telegram.WebApp.themeParams.button_color)
+				.enable()
 		}
 	}
 
 	function submitForm() {
-		window.Telegram.WebApp.MainButton.showProgress()
+		validateForm()
 		const json: Record<string, unknown> = {}
 
 		const data = new FormData(form)
@@ -51,6 +53,7 @@
 		window.Telegram.WebApp.MainButton.setText('Сгенерировать')
 			.onClick(() => form.submit())
 			.disable()
+			.setColor(window.Telegram.WebApp.themeParams.hint_color)
 			.show()
 	})
 </script>

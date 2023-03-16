@@ -504,13 +504,12 @@ video {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-\[var\(--theme-hint-color\)\] {
+  color: var(--theme-hint-color);
+}
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
-}
-.text-slate-600 {
-  --tw-text-opacity: 1;
-  color: rgb(71 85 105 / var(--tw-text-opacity));
 }
 .accent-\[var\(--theme-button-color\)\] {
   accent-color: var(--theme-button-color);
