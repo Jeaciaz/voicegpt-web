@@ -40,7 +40,7 @@
 		window.Telegram.WebApp.sendData(JSON.stringify(json))
 	}
 	const resizeListener = () => {
-		document.documentElement.style.setProperty('min-height', `${window.visualViewport?.height}`)
+		document.documentElement.style.setProperty('max-height', `${window.visualViewport?.height}`)
 	}
 
 	onMount(() => {
