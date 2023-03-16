@@ -33,7 +33,7 @@
 	}
 
 	function submitForm() {
-		validateForm()
+		window.Telegram.WebApp.MainButton.showProgress()
 		const json: Record<string, unknown> = {}
 
 		const data = new FormData(form)
@@ -47,12 +47,11 @@
 				: json.dimensions
 
 		window.Telegram.WebApp.sendData(JSON.stringify(json))
-		window.Telegram.WebApp.close()
 	}
 
 	onMount(() => {
 		window.Telegram.WebApp.MainButton.setText('Сгенерировать')
-			.onClick(() => form.submit())
+			.onClick(() => submitForm())
 			.disable()
 			.setParams({ color: window.Telegram.WebApp.themeParams.hint_color })
 			.show()
@@ -64,7 +63,7 @@
 <form
 	class="grid gap-4"
 	bind:this={form}
-	on:submit|preventDefault={submitForm}
+	on:submit|preventDefault
 	on:input={validateForm}
 >
 	<div class="grid grid-cols-2 gap-2 mt-4">
