@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
+	import { onMount } from 'svelte'
 	import Button from '../../shared/ui/Button.svelte'
 	import Range from '../../shared/ui/Range.svelte'
 	import Select from '../../shared/ui/Select.svelte'
@@ -31,13 +32,19 @@
 	}
 
 	function submitForm(data: FormData) {
-    const json: Record<string, FormDataEntryValue> = {}
-    data.forEach((value, key) => {
-      json[key] = value
-    })
-    console.log(json)
-    window.Telegram.WebApp.sendData(JSON.stringify(json))
-  }
+		const json: Record<string, FormDataEntryValue> = {}
+		data.forEach((value, key) => {
+			json[key] = value
+		})
+		console.log(json)
+		window.Telegram.WebApp.sendData(JSON.stringify(json))
+	}
+	const resizeListener = () => alert(JSON.stringify(window.visualViewport?.height))
+
+	onMount(() => {
+		window.visualViewport?.addEventListener('resize', resizeListener)
+		return () => window.visualViewport?.removeEventListener('resize', resizeListener)
+	})
 </script>
 
 <h1 class="text-center text-3xl">TXT -> IMG</h1>
@@ -45,7 +52,6 @@
 <form
 	class="grid gap-4"
 	on:submit|preventDefault={e => submitForm(new FormData(e.currentTarget))}
-	use:enhance
 >
 	<div class="grid grid-cols-2 gap-2 mt-4">
 		<TextField name="prompt" label="Запрос" placeholder="elden ring, epic" required />
