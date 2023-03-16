@@ -1,0 +1,53 @@
+<script lang="ts">
+	import Labelled from './Labelled.svelte'
+	export let label: string | undefined = undefined
+	export let value: number | string = ''
+	export let placeholder: string | undefined = undefined
+	export let disabled: boolean = false
+	export let name: string | undefined = undefined
+	export let required: boolean = false
+	export let validate: undefined | ((value: number | string) => Error | undefined) = undefined
+	export let type: 'number' | 'password' | 'text' = 'text'
+
+	let validationError: Error | undefined = undefined
+	let dirty = false
+
+	function castValue(value: number | string) {
+		return 	type.match(/^number|range$/) ? +value : value
+	}
+
+	function performValidation(value: string) {
+		validationError = validate?.(castValue(value))
+	}
+
+	function onInput(e: Event & { currentTarget: HTMLInputElement }) {
+		value = castValue(e.currentTarget.value)
+	}
+</script>
+
+<Labelled {label} {required}>
+	<input
+		{type}
+		{name}
+		{placeholder}
+		{disabled}
+		{required}
+		{value}
+		on:input={onInput}
+		on:change={e => performValidation(e.currentTarget.value)}
+		on:focus={() => (dirty = false)}
+		on:blur={() => (dirty = true)}
+		class="border
+		border-slate-400
+			rounded-md
+			p-1
+		hover:border-slate-500
+		focus:border-teal-500
+			{dirty ? 'invalid:border-red-500' : ''}
+			{dirty && validationError !== undefined ? 'border-red-500' : ''}"
+		aria-label={label}
+	/>
+	{#if dirty && validationError !== undefined}
+		<span class="text-xs text-red-500">{validationError.message}</span>
+	{/if}
+</Labelled>
