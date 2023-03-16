@@ -26,9 +26,9 @@
 
 	function validateForm() {
 		if (form.checkValidity()) {
-			window.Telegram.WebApp.MainButton
-				.setColor(window.Telegram.WebApp.themeParams.button_color)
-				.enable()
+			window.Telegram.WebApp.MainButton.setParams({
+				color: window.Telegram.WebApp.themeParams.button_color,
+			}).enable()
 		}
 	}
 
@@ -53,7 +53,7 @@
 		window.Telegram.WebApp.MainButton.setText('Сгенерировать')
 			.onClick(() => form.submit())
 			.disable()
-			.setColor(window.Telegram.WebApp.themeParams.hint_color)
+			.setParams({ color: window.Telegram.WebApp.themeParams.hint_color })
 			.show()
 	})
 </script>
