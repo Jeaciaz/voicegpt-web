@@ -47,6 +47,7 @@
 				: json.dimensions
 
 		window.Telegram.WebApp.sendData(JSON.stringify(json))
+		window.Telegram.WebApp.close()
 	}
 
 	onMount(() => {
