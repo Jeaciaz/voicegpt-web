@@ -86,5 +86,4 @@
 			<Range name="cfg_scale" min={1} max={25} label="CFG Scale" step={0.5} defaultValue={7.5} />
 		</div>
 	</details>
-	<button on:click={submitForm}>submit</button>
 </form>
