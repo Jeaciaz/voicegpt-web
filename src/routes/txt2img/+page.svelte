@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { enhance } from '$app/forms'
 	import { onMount } from 'svelte'
-	import Button from '../../shared/ui/Button.svelte'
 	import Range from '../../shared/ui/Range.svelte'
 	import Select from '../../shared/ui/Select.svelte'
 	import TextField from '../../shared/ui/TextField.svelte'
@@ -14,38 +12,46 @@
 	]
 
 	const dimensionItems = [
-		{ label: 'Квадрат', value: 'square' },
-		{ label: 'Портрет', value: 'portrait' },
-		{ label: 'Пейзаж', value: 'landscape' },
-		{ label: 'Другое', value: 'custom' },
+		{ label: 'Квадрат [512x512]', value: 'square' },
+		{ label: 'Портрет [512x768]', value: 'portrait' },
+		{ label: 'Пейзаж [768x512]', value: 'landscape' },
 	]
-	let dimension: string = dimensionItems[0].value
+	const dimensionValues = {
+		square: { x: 512, y: 512 },
+		portrait: { x: 512, y: 768 },
+		landscape: { x: 768, y: 512 },
+	}
 
-	function validateDimension(dimension: string | number) {
-		if (typeof dimension === 'string' || isNaN(dimension)) {
-			return new Error('Введите корректное число')
-		}
+	let form: HTMLFormElement
 
-		if (dimension % 2 === 1) {
-			return new Error('Размер должен быть кратен 2')
+	function validateForm() {
+		if (form.checkValidity()) {
+			window.Telegram.WebApp.MainButton.enable()
 		}
 	}
 
-	function submitForm(data: FormData) {
-		const json: Record<string, FormDataEntryValue> = {}
+	function submitForm() {
+		window.Telegram.WebApp.MainButton.showProgress()
+		const json: Record<string, unknown> = {}
+
+		const data = new FormData(form)
 		data.forEach((value, key) => {
 			json[key] = value
 		})
-		console.log(json)
+
+		json.dimensions =
+			typeof json.dimensions === 'string' && json.dimensions in dimensionValues
+				? dimensionValues[json.dimensions as keyof typeof dimensionValues]
+				: json.dimensions
+
 		window.Telegram.WebApp.sendData(JSON.stringify(json))
-	}
-	const resizeListener = () => {
-		document.documentElement.style.setProperty('max-height', `${window.visualViewport?.height}`)
 	}
 
 	onMount(() => {
-		window.visualViewport?.addEventListener('resize', resizeListener)
-		return () => window.visualViewport?.removeEventListener('resize', resizeListener)
+		window.Telegram.WebApp.MainButton.setText('Сгенерировать')
+			.onClick(() => form.submit())
+			.disable()
+			.show()
 	})
 </script>
 
@@ -53,41 +59,22 @@
 
 <form
 	class="grid gap-4"
-	on:submit|preventDefault={e => submitForm(new FormData(e.currentTarget))}
+	bind:this={form}
+	on:submit|preventDefault={submitForm}
+	on:input={validateForm}
 >
 	<div class="grid grid-cols-2 gap-2 mt-4">
 		<TextField name="prompt" label="Запрос" placeholder="elden ring, epic" required />
-		<TextField name="negative-prompt" label="Антизапрос" placeholder="realism" required />
+		<TextField name="negative-prompt" label="Антизапрос" placeholder="realism" />
 	</div>
-	<Select name="sampler-method" options={samplerMethods} label="Метод семплера" />
-	<Range name="sampler-steps" min={20} max={40} label="Шаги семплера" />
-	<Select
-		name="dimensions"
-		options={dimensionItems}
-		label="Размер изображения"
-		bind:value={dimension}
-	/>
-	{#if dimension === 'custom'}
-		<div class="grid grid-cols-2 gap-2">
-			<TextField
-				name="dim-x"
-				label="X"
-				placeholder="512"
-				required
-				type="number"
-				validate={validateDimension}
-			/>
-			<TextField
-				name="dim-y"
-				label="Y"
-				placeholder="512"
-				required
-				type="number"
-				validate={validateDimension}
-			/>
+	<Select name="dimensions" options={dimensionItems} label="Размер изображения: " />
+	<details>
+		<summary>Продвинутые опции</summary>
+		<div class="grid gap-4">
+			<Select name="sampler-method" options={samplerMethods} label="Метод семплера" />
+			<Range name="sampler-steps" min={20} max={40} label="Шаги семплера" />
+			<TextField name="seed" label="Seed" placeholder="1234567890" type="number" />
+			<Range name="cfg-scale" min={1} max={25} label="CFG Scale" />
 		</div>
-	{/if}
-	<TextField name="seed" label="Seed" placeholder="любой текст" />
-	<Range name="cfg-scale" min={1} max={25} label="CFG Scale" />
-	<Button type="submit">Подтвердить</Button>
+	</details>
 </form>

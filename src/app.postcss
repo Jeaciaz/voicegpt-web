@@ -2,3 +2,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*, *:before, *:after {
+  --theme-bg-color: var(--tg-theme-bg-color, rgba(241, 241, 241));
+  --theme-text-color: var(--tg-theme-text-color, rgba(33, 32, 31));
+  --theme-hint-color: var(--tg-theme-hint-color, rgba(160, 160, 160));
+  --theme-link-color: var(--tg-theme-link-color, plum);
+  --theme-button-color: var(--tg-theme-button-color, plum);
+  --theme-button-text-color: var(--tg-theme-button-text-color, rgba(241, 241, 241));
+  --theme-secondary-bg-color: var(--tg-theme-secondary-bg-color, rgba(200, 200, 200));
+
+
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+}

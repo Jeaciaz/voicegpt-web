@@ -6,16 +6,16 @@
 		<script src="https://telegram.org/js/telegram-web-app.js"></script>
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="content-security-policy" content="">
-		<link href="./_app/immutable/assets/_layout.ee75c36e.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.bc7f3c68.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.13b8afdf.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.254213b6.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/utils.d2eec17c.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.939366c8.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_layout.svelte.d1a8cc50.js">
+		<link href="./_app/immutable/assets/_layout.78313c97.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/_page.4e8d1805.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.4dbed80d.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.563170ca.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.57888bde.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.40fb46e9.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/_layout.svelte.5e3e23eb.js">
 		<link rel="modulepreload" href="./_app/immutable/entry/_layout.ts.984db11e.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/txt2img-page.svelte.c459b2be.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/txt2img-page.svelte.1c4a9a60.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -25,40 +25,52 @@
 
 <form class="grid gap-4"><div class="grid grid-cols-2 gap-2 mt-4"><label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">Запрос
 			<span class="text-sm text-red-500">*</span></span>
-		<input type="text" name="prompt" placeholder="elden ring, epic"  required value="" class="border border-slate-400 rounded-md p-1 hover:border-slate-500 focus:border-teal-500  " aria-label="Запрос">
+		<input type="text" name="prompt" placeholder="elden ring, epic"  required value="" class="border border-[var(--theme-hint-color)] rounded-md p-1 focus-visible:border-[var(--theme-text-color)] outline-0  " aria-label="Запрос">
 	</label>
 		<label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">Антизапрос
-			<span class="text-sm text-red-500">*</span></span>
-		<input type="text" name="negative-prompt" placeholder="realism"  required value="" class="border border-slate-400 rounded-md p-1 hover:border-slate-500 focus:border-teal-500  " aria-label="Антизапрос">
-	</label></div>
-	<label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">Метод семплера
 			</span>
-		<select name="sampler-method" aria-label="Метод семплера" class="block border border-slate-400 hover:border-slate-500 rounded-md p-1.5"><option value="euler_a">Euler 𝛼</option><option value="heun">Heun</option><option value="dpmpp_m2">DPM++ M2</option><option value="ddim">DDIM</option></select></label>
-	<label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">Шаги семплера: 30
+		<input type="text" name="negative-prompt" placeholder="realism"   value="" class="border border-[var(--theme-hint-color)] rounded-md p-1 focus-visible:border-[var(--theme-text-color)] outline-0  " aria-label="Антизапрос">
+	</label></div>
+	<label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">Размер изображения: 
+			</span>
+		<ul class="flex flex-nowrap list-none overflow-auto max-w-full pt-1"><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem selected">Квадрат [512x512]</button>
+				</li><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem">Портрет [512x768]</button>
+				</li><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem">Пейзаж [768x512]</button>
+				</li></ul>
+
+		
+		<input type="hidden" name="dimensions" value="square"></label>
+	<details><summary>Продвинутые опции</summary>
+		<div class="grid gap-4"><label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">Метод семплера
+			</span>
+		<ul class="flex flex-nowrap list-none overflow-auto max-w-full pt-1"><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem selected">Euler 𝛼</button>
+				</li><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem">Heun</button>
+				</li><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem">DPM++ M2</button>
+				</li><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem">DDIM</button>
+				</li></ul>
+
+		
+		<input type="hidden" name="sampler-method" value="euler_a"></label>
+			<label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">Шаги семплера: 30
 			</span>
 		<div class="flex text-sm"><span>20</span>
-		<input class="mx-1 flex-1 accent-teal-500" type="range" value="30" max="40" min="20" name="sampler-steps">
+		<input class="mx-1 flex-1 accent-[var(--theme-button-color)]" type="range" value="30" max="40" min="20" name="sampler-steps">
 		<span>40</span></div></label>
-	<label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">Размер изображения
+			<label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">Seed
 			</span>
-		<select name="dimensions" aria-label="Размер изображения" class="block border border-slate-400 hover:border-slate-500 rounded-md p-1.5"><option value="square">Квадрат</option><option value="portrait">Портрет</option><option value="landscape">Пейзаж</option><option value="custom">Другое</option></select></label>
-	
-	<label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">Seed
-			</span>
-		<input type="text" name="seed" placeholder="любой текст"   value="" class="border border-slate-400 rounded-md p-1 hover:border-slate-500 focus:border-teal-500  " aria-label="Seed">
+		<input type="number" name="seed" placeholder="1234567890"   value="" class="border border-[var(--theme-hint-color)] rounded-md p-1 focus-visible:border-[var(--theme-text-color)] outline-0  " aria-label="Seed">
 	</label>
-	<label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">CFG Scale: 13
+			<label class="flex flex-col"><span class="text-sm text-slate-600 pl-1.5">CFG Scale: 13
 			</span>
 		<div class="flex text-sm"><span>1</span>
-		<input class="mx-1 flex-1 accent-teal-500" type="range" value="13" max="25" min="1" name="cfg-scale">
-		<span>25</span></div></label>
-	<button class="px-2 py-1 bg-teal-500 text-white rounded-md hover:bg-teal-600 active:bg-teal-700" type="submit">Подтвердить</button></form></main>
+		<input class="mx-1 flex-1 accent-[var(--theme-button-color)]" type="range" value="13" max="25" min="1" name="cfg-scale">
+		<span>25</span></div></label></div></details></form></main>
 
 
 			
 			<script>
 				{
-					__sveltekit_1w4pr5e = {
+					__sveltekit_kt48ky = {
 						env: {},
 						assets: "/voicegpt-web",
 						base: new URL(".", location).pathname.slice(0, -1),
@@ -68,10 +80,10 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.bc7f3c68.js"),
-						import("./_app/immutable/entry/app.939366c8.js")
+						import("./_app/immutable/entry/start.4dbed80d.js"),
+						import("./_app/immutable/entry/app.40fb46e9.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_1w4pr5e.element, {
+						kit.start(app, __sveltekit_kt48ky.element, {
 							node_ids: [0, 3],
 							data,
 							form: null,

@@ -3,18 +3,39 @@
 	export let name: string | undefined = undefined
 	export let options: Array<{ label: string; value: string }> = []
 	export let label: string | undefined = undefined
-  export let value: string | undefined = undefined
+	export let value: string | undefined = options[0].value
 </script>
 
-<Labelled {label}>
-	<select
-		{name}
-		aria-label={label}
-    on:change={(e) => value = e.currentTarget.value}
-		class="block border border-slate-400 hover:border-slate-500 rounded-md p-1.5"
-	>
-		{#each options as { label, value }}
-			<option {value}>{label}</option>
-		{/each}
-	</select>
-</Labelled>
+{#if options.length > 0}
+	<Labelled {label}>
+		<ul class="flex flex-nowrap list-none overflow-auto max-w-full pt-1">
+			{#each options as { label, value: itemValue }}
+				<li class="[&:not(:last-child)]:mr-4">
+					<button
+						type="button"
+						class="item cursor-pointer"
+						class:selected={value === itemValue}
+						on:click={() => (value = itemValue)}
+					>
+						{label}
+					</button>
+				</li>
+			{/each}
+		</ul>
+
+		<!-- For working with forms -->
+		<input type="hidden" {name} {value} />
+	</Labelled>
+{/if}
+
+<style>
+	.item {
+		@apply py-0.5 px-2 border rounded-lg;
+		border-color: var(--theme-hint-color);
+	}
+	.selected {
+		@apply border-transparent;
+		background-color: var(--theme-button-color);
+		color: var(--theme-button-text-color);
+	}
+</style>

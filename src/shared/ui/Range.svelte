@@ -15,7 +15,7 @@
 	<div class="flex text-sm">
 		<span>{min}</span>
 		<input
-			class="mx-1 flex-1 accent-teal-500"
+			class="mx-1 flex-1 accent-[var(--theme-button-color)]"
 			type="range"
 			on:input={e => onInput(e.currentTarget.value)}
 			{value}

@@ -13,7 +13,7 @@
 	let dirty = false
 
 	function castValue(value: number | string) {
-		return 	type.match(/^number|range$/) ? +value : value
+		return type.match(/^number|range$/) ? +value : value
 	}
 
 	function performValidation(value: string) {
@@ -38,11 +38,11 @@
 		on:focus={() => (dirty = false)}
 		on:blur={() => (dirty = true)}
 		class="border
-		border-slate-400
+		border-[var(--theme-hint-color)]
 			rounded-md
 			p-1
-		hover:border-slate-500
-		focus:border-teal-500
+		focus-visible:border-[var(--theme-text-color)]
+		 outline-0
 			{dirty ? 'invalid:border-red-500' : ''}
 			{dirty && validationError !== undefined ? 'border-red-500' : ''}"
 		aria-label={label}
