@@ -61,10 +61,10 @@
 		src: url('./fonts/Montserrat-SemiBold.ttf');
 	}
 
-  @font-face {
-    font-family: Raleway;
-    font-style: normal;
-    font-weight: normal;
-    src: url('./fonts/Raleway-Regular.ttf');
-  }
+	@font-face {
+		font-family: Raleway;
+		font-style: normal;
+		font-weight: normal;
+		src: url('./fonts/Raleway-Regular.ttf');
+	}
 </style>
