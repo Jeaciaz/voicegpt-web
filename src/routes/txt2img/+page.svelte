@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths'
 	import { onMount } from 'svelte'
 	import Range from '../../shared/ui/Range.svelte'
 	import Select from '../../shared/ui/Select.svelte'
@@ -56,11 +57,11 @@
 			delete json[dimensionsFormName]
 		}
 
-		console.log(json)
 		window.Telegram.WebApp.sendData(JSON.stringify(json))
 	}
 
-	onMount(() => {
+	onMount(async () => {
+		await import(`${base}/telegram-web-app.js`)
 		window.Telegram.WebApp.MainButton.setText('Сгенерировать')
 			.onClick(() => submitForm())
 			.disable()
