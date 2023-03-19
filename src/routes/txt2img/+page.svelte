@@ -11,7 +11,12 @@
 	}
 
 	function submitForm(formData: Record<string, unknown>) {
-		sendData(formData)
+		try {
+			alert('txt2img submit')
+			sendData(formData)
+		} catch (e) {
+			alert(JSON.stringify(e))
+		}
 	}
 
 	function parseExtra({ cfg_scale, ...formData }: Record<string, unknown>) {

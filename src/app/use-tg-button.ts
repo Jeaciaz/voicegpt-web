@@ -29,9 +29,13 @@ export function setIsBtnEnabled(enabled: boolean) {
 }
 
 export function sendData(data: unknown) {
+  alert('start sendData')
 	const { sendData } = getWA()
 	setIsBtnLoading(true)
+  alert('about to send data')
+  alert(JSON.stringify(data))
 	sendData(JSON.stringify(data))
+  alert('sent data')
 }
 
 export function setIsBtnLoading(loading: boolean) {

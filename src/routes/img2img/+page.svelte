@@ -11,12 +11,20 @@
 	}
 
 	function submitForm(formData: Record<string, unknown>) {
-		console.log(formData)
-		sendData(formData)
+		try {
+			console.log(formData)
+			alert('img2img submit')
+			sendData(formData)
+		} catch (e) {
+			alert(JSON.stringify(e))
+		}
 	}
 
 	function parseExtra({ source_img, denoising_strength, ...formData }: Record<string, unknown>) {
-		const resultWithoutFiles: Record<string, unknown> = { ...formData, denoising_strength: Number(denoising_strength) }
+		const resultWithoutFiles: Record<string, unknown> = {
+			...formData,
+			denoising_strength: Number(denoising_strength),
+		}
 		if (!(source_img instanceof File)) {
 			return resultWithoutFiles
 		}
