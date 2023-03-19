@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { sendData, setIsBtnEnabled, setupBtn } from '@app/use-tg-button'
+	import { sendData, setIsBtnEnabled, setIsBtnLoading, setupBtn } from '@app/use-tg-button'
 	import SDForm from '@widgets/SDForm.svelte'
 	import { ImageFileField, Range } from '@shared/ui'
 
@@ -15,7 +15,10 @@
 			console.log(formData)
 			sendData(formData)
 		} catch (e) {
-			alert('Error: ' + JSON.stringify(e) + '; ' + e.message)
+      setIsBtnLoading(false)
+			alert(
+				'Передано слишком большое изображение. Мы работаем над улучшением процесса, пока доступны только изображения меньше 2кб.'
+			)
 		}
 	}
 

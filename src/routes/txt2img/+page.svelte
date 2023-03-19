@@ -11,11 +11,7 @@
 	}
 
 	function submitForm(formData: Record<string, unknown>) {
-		try {
-			sendData(formData)
-		} catch (e) {
-			alert('Error: ' + JSON.stringify(e) + '; ' + e.message)
-		}
+		sendData(formData)
 	}
 
 	function parseExtra({ cfg_scale, ...formData }: Record<string, unknown>) {
