@@ -20,8 +20,14 @@ const config = {
 		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter({
-			pages: 'docs'
+			pages: 'docs',
 		}),
+		alias: {
+			'@app': 'src/app',
+			'@shared/*': 'src/shared/*',
+			'@widgets': 'src/widgets',
+			'@widgets/*': 'src/widgets/*',
+		},
 		paths: {
 			base: dev ? '' : '/voicegpt-web',
 			relative: false,
