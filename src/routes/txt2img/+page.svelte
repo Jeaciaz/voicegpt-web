@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { sendData, setIsBtnEnabled, setIsBtnLoading, setupBtn } from '@app/use-tg-button'
+	import { sendData, setIsBtnEnabled, setupBtn } from '@app/use-tg-button'
 	import SDForm from '@widgets/SDForm.svelte'
 	import { Range } from '@shared/ui'
 
@@ -11,8 +11,6 @@
 	}
 
 	function submitForm(formData: Record<string, unknown>) {
-		setIsBtnLoading(true)
-		console.log(formData)
 		sendData(formData)
 	}
 
@@ -28,7 +26,7 @@
 
 <h1 class="text-center text-3xl">TXT -> IMG</h1>
 
-<SDForm {form} onSubmit={submitForm} {parseExtra} on:input={checkIfButtonEnabled}>
+<SDForm bind:form onSubmit={submitForm} {parseExtra} on:input={checkIfButtonEnabled}>
 	<Range
 		slot="post-advanced"
 		name="cfg_scale"

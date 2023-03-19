@@ -30,15 +30,15 @@ export function setIsBtnEnabled(enabled: boolean) {
 
 export function sendData(data: unknown) {
 	const { sendData } = getWA()
-	setIsBtnEnabled(false)
+	setIsBtnLoading(true)
 	sendData(JSON.stringify(data))
 }
 
 export function setIsBtnLoading(loading: boolean) {
 	const { MainButton } = getWA()
 	if (loading) {
-    MainButton.showProgress()
+		MainButton.showProgress()
 	} else {
-    MainButton.hideProgress()
-  }
+		MainButton.hideProgress()
+	}
 }
