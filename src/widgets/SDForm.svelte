@@ -122,5 +122,4 @@
 			<slot name="post-advanced" />
 		</div>
 	</details>
-	<button>Submit</button>
 </form>
