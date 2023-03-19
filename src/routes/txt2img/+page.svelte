@@ -12,10 +12,9 @@
 
 	function submitForm(formData: Record<string, unknown>) {
 		try {
-			alert('txt2img submit')
 			sendData(formData)
 		} catch (e) {
-			alert(JSON.stringify(e))
+			alert('Error: ' + JSON.stringify(e) + '; ' + e.message)
 		}
 	}
 

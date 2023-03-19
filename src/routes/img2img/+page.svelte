@@ -13,10 +13,9 @@
 	function submitForm(formData: Record<string, unknown>) {
 		try {
 			console.log(formData)
-			alert('img2img submit')
 			sendData(formData)
 		} catch (e) {
-			alert(JSON.stringify(e))
+			alert('Error: ' + JSON.stringify(e) + '; ' + e.message)
 		}
 	}
 
