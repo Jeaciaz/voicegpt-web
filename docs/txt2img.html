@@ -8,77 +8,29 @@
 		<meta http-equiv="content-security-policy" content="">
 		<link href="/voicegpt-web/_app/immutable/assets/_layout.6c66e8e7.css" rel="stylesheet">
 		<link href="/voicegpt-web/_app/immutable/assets/SDForm.6f8dce96.css" rel="stylesheet">
-		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/entry/start.e80e6975.js">
+		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/entry/start.cdcf422b.js">
 		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/chunks/index.98711fea.js">
-		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/chunks/singletons.0703ee3e.js">
-		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/chunks/paths.25fac49a.js">
-		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/entry/app.ef908ffd.js">
+		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/chunks/singletons.827d27a5.js">
+		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/chunks/paths.79bc6afb.js">
+		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/entry/app.129078eb.js">
 		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/chunks/preload-helper.41c905a7.js">
-		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/entry/_layout.svelte.a11cb4ff.js">
+		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/entry/_layout.svelte.7a62903f.js">
 		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/entry/_layout.ts.984db11e.js">
 		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/entry/txt2img-page.svelte.92718603.js">
-		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/chunks/SDForm.2d2bdcef.js">
+		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/entry/txt2img-page.svelte.5e2dafb6.js">
+		<link rel="modulepreload" href="/voicegpt-web/_app/immutable/chunks/SDForm.aa89da41.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
 
 
 
-	<main><h1 class="text-center text-3xl">TXT -&gt; IMG</h1>
-
-<form class="grid gap-4 p-4 mt-4">
-	<div class="grid grid-cols-2 gap-2"><label class="flex flex-col"><span class="text-sm text-[var(--theme-hint-color)] pl-1.5">Запрос
-			<span class="text-sm text-red-500">*</span></span>
-		<input type="text" name="prompt" placeholder="elden ring, epic"  required value="" class="border border-[var(--theme-hint-color)] rounded-md p-1 focus-visible:border-[var(--theme-text-color)] outline-0  " aria-label="Запрос">
-	</label>
-		<label class="flex flex-col"><span class="text-sm text-[var(--theme-hint-color)] pl-1.5">Антизапрос
-			</span>
-		<input type="text" name="negative_prompt" placeholder="realism"   value="" class="border border-[var(--theme-hint-color)] rounded-md p-1 focus-visible:border-[var(--theme-text-color)] outline-0  " aria-label="Антизапрос">
-	</label></div>
-	<label class="flex flex-col"><span class="text-sm text-[var(--theme-hint-color)] pl-1.5">Размер изображения: 
-			</span>
-		<ul class="flex flex-nowrap list-none overflow-auto max-w-full pt-1"><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem selected">Квадрат [512x512]</button>
-				</li><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem">Портрет [512x768]</button>
-				</li><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem">Пейзаж [768x512]</button>
-				</li></ul>
-
-		
-		<input type="hidden" name="dimensions" value="square"></label>
-	
-	<details><summary>Продвинутые опции</summary>
-		<div class="grid gap-4">
-			<label class="flex flex-col"><span class="text-sm text-[var(--theme-hint-color)] pl-1.5">Метод семплера
-			</span>
-		<ul class="flex flex-nowrap list-none overflow-auto max-w-full pt-1"><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem selected">Euler 𝛼</button>
-				</li><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem">Heun</button>
-				</li><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem">DPM++ M2</button>
-				</li><li class="[&:not(:last-child)]:mr-4"><button type="button" class="item cursor-pointer svelte-fv5mem">DDIM</button>
-				</li></ul>
-
-		
-		<input type="hidden" name="sampler_method" value="Euler a"></label>
-			<label class="flex flex-col"><span class="text-sm text-[var(--theme-hint-color)] pl-1.5">Шаги семплера: 20
-			</span>
-		<div class="flex text-sm"><span>20</span>
-		<input class="mx-1 flex-1 accent-[var(--theme-button-color)]" type="range" value="20" max="40" min="20" step="1" name="sampler_steps">
-		<span>40</span></div></label>
-			<label class="flex flex-col"><span class="text-sm text-[var(--theme-hint-color)] pl-1.5">Seed
-			</span>
-		<input type="number" name="seed" placeholder="1234567890"   value="" class="border border-[var(--theme-hint-color)] rounded-md p-1 focus-visible:border-[var(--theme-text-color)] outline-0  " aria-label="Seed">
-	</label>
-			<label class="flex flex-col"><span class="text-sm text-[var(--theme-hint-color)] pl-1.5">CFG Scale: 7.5
-			</span>
-		<div class="flex text-sm"><span>1</span>
-		<input class="mx-1 flex-1 accent-[var(--theme-button-color)]" type="range" value="7.5" max="25" min="1" step="0.5" name="cfg_scale">
-		<span>25</span></div></label></div></details></form></main>
-
 
 
 			
 			<script>
 				{
-					__sveltekit_7sgcqj = {
+					__sveltekit_dan5jx = {
 						env: {},
 						assets: "/voicegpt-web",
 						base: "/voicegpt-web",
@@ -88,10 +40,10 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("/voicegpt-web/_app/immutable/entry/start.e80e6975.js"),
-						import("/voicegpt-web/_app/immutable/entry/app.ef908ffd.js")
+						import("/voicegpt-web/_app/immutable/entry/start.cdcf422b.js"),
+						import("/voicegpt-web/_app/immutable/entry/app.129078eb.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_7sgcqj.element, {
+						kit.start(app, __sveltekit_dan5jx.element, {
 							node_ids: [0, 4],
 							data,
 							form: null,
