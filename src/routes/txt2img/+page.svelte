@@ -15,8 +15,11 @@
 	function submitForm(formData: Record<string, unknown>) {
 		setIsBtnLoading(true)
 		getCacheValue(JSON.stringify(formData))
+			.then(result => ({
+				...result,
+				operation: 'txt2img'
+			}))
 			.then(result => {
-				console.log(result)
 				sendData(result)
 			})
 			.catch(e => {
