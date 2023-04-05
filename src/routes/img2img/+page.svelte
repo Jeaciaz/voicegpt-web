@@ -11,14 +11,18 @@
 	}
 
 	function submitForm(formData: Record<string, unknown>) {
+		setIsBtnLoading(true)
+		const url = 'https://voicechatgpt.ru/cache/'
+		const response = fetch(url, {
+			method: 'POST',
+			body: JSON.stringify(formData),
+		}).then(res => res.json())
+
 		try {
-			console.log(formData)
-			sendData(formData)
+			sendData(response)
 		} catch (e) {
       setIsBtnLoading(false)
-			alert(
-				'Передано слишком большое изображение. Мы работаем над улучшением процесса, пока доступны только изображения меньше 2кб.'
-			)
+			alert(JSON.stringify(e))
 		}
 	}
 

@@ -21,7 +21,7 @@
 		}
 	}
 
-	// onMount(() => setupBtn(() => form.requestSubmit()))
+	onMount(() => setupBtn(() => form.requestSubmit()))
 </script>
 
 <h1 class="text-center text-3xl">TXT -> IMG</h1>
