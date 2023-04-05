@@ -14,6 +14,7 @@
 
 	function submitForm(formData: Record<string, unknown>) {
 		setIsBtnLoading(true)
+		console.log(formData)
 		getCacheValue(JSON.stringify(formData))
 			.then(result => ({
 				...result,

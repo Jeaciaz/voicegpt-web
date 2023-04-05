@@ -7,12 +7,7 @@
 	export let name: string | undefined = undefined
 	export let label: string | undefined = undefined
 
-	let value: number = defaultValue
-	$: coef = 1 / step
-
-	function onInput(newValue: string) {
-		value = +newValue / coef
-	}
+	let value: string = `${defaultValue}`
 </script>
 
 <Labelled label="{label}: {value}">
@@ -20,12 +15,11 @@
 		<span>{min}</span>
 		<input
 			class="mx-1 flex-1 accent-[var(--theme-button-color)]"
-			type="range"
-			on:input={e => onInput(e.currentTarget.value)}
-			value={coef * value}
-			max={coef * max}
-			min={coef * min}
-			step={coef * step}
+			type=range
+			bind:value={value}
+			max={max}
+			min={min}
+			step={step}
 			{name}
 		/>
 		<span>{max}</span>
