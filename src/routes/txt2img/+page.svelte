@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { sendData, setIsBtnEnabled, setupBtn } from '@app/use-tg-button'
+	import { getCacheValue } from '@app/use-cache-value'
+	import { sendData, setIsBtnEnabled, setIsBtnLoading, setupBtn } from '@app/use-tg-button'
 	import SDForm from '@widgets/SDForm.svelte'
 	import { Range } from '@shared/ui'
+	import { pipe } from 'ts-pipe-compose'
 
 	let form: HTMLFormElement
 
@@ -11,7 +13,16 @@
 	}
 
 	function submitForm(formData: Record<string, unknown>) {
-		sendData(formData)
+		setIsBtnLoading(true)
+		getCacheValue(JSON.stringify(formData))
+			.then(result => {
+				console.log(result)
+				sendData(result)
+			})
+			.catch(e => {
+				setIsBtnLoading(false)
+				pipe(e, JSON.stringify, alert)
+			})
 	}
 
 	function parseExtra({ cfg_scale, ...formData }: Record<string, unknown>) {

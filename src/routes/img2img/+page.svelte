@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
+	import { getCacheValue } from '@app/use-cache-value'
 	import { sendData, setIsBtnEnabled, setIsBtnLoading, setupBtn } from '@app/use-tg-button'
 	import SDForm from '@widgets/SDForm.svelte'
 	import { ImageFileField, Range } from '@shared/ui'
+	import { pipe } from 'ts-pipe-compose'
 
 	let form: HTMLFormElement
 
@@ -12,18 +14,14 @@
 
 	function submitForm(formData: Record<string, unknown>) {
 		setIsBtnLoading(true)
-		const url = 'https://voicechatgpt.ru/cache/'
-		const response = fetch(url, {
-			method: 'POST',
-			body: JSON.stringify(formData),
-		}).then(res => res.json())
-
-		try {
-			sendData(response)
-		} catch (e) {
-      setIsBtnLoading(false)
-			alert(JSON.stringify(e))
-		}
+		getCacheValue(JSON.stringify(formData))
+			.then(result => {
+				sendData(result)
+			})
+			.catch(e => {
+				setIsBtnLoading(false)
+				pipe(e, JSON.stringify, alert)
+			})
 	}
 
 	function parseExtra({ source_img, denoising_strength, ...formData }: Record<string, unknown>) {
