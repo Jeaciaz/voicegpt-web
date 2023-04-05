@@ -41,7 +41,7 @@
 			fileReader.onload = () =>
 				resolve({
 					...resultWithoutFiles,
-					source_img: String(fileReader.result).split?.(',')[1] || null,
+					init_images: [String(fileReader.result).split?.(',')[1] || null].filter(Boolean),
 				})
 			fileReader.onerror = reject
 			fileReader.readAsDataURL(source_img)
