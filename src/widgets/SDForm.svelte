@@ -66,7 +66,7 @@
 		return {
 			...formData,
 			[formNames.samplerSteps]: Number(samplerSteps),
-			[formNames.seed]: Number(seed),
+			[formNames.seed]: Number(seed || -1),
 		}
 	}
 
